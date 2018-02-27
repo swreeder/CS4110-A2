@@ -22,7 +22,7 @@ public class PartA {
 		//this string array holds the production rules that satisfy the language 
 		//described in the main header.
 		String[] prodRules = {"S=>ab",
-							  "S=>aaSvbb"};
+							  "S=>aaSbb"};
 
 	}
 	
