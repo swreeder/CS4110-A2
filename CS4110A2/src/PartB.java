@@ -12,19 +12,22 @@
 
 
 //--------------------------------------------------------------------------------
-//The class Part A is the driver class. The mian method accepts input from the 
+//The class Part B is the driver class. The mian method accepts input from the 
 //command line and tests this input to see if it is a word in the language 
 //described in the main header comments
 //--------------------------------------------------------------------------------
 // Java program to read data of various types using Scanner class.
 import java.util.Scanner;
-public class PartA {
+public class PartB {
 
 	public static void main(String[] args) {
 		//this string array holds the production rules that satisfy the language 
 		//described in the main header.
-		String[] prodRules = {"S=>ab",
-							  "S=>aaSbb"};
+		String[] prodRules = {"S=>a",
+							  "S=>b",
+							  "S=>ab",
+							  "S=>bS",
+							  "S=>abS"};
 		
 		CFG cfg = new CFG(prodRules);
 		char intNT = cfg.getStartNT();
@@ -40,7 +43,7 @@ public class PartA {
 	
 
 
-}//end class PartA
+}//end class PartB
 
 //--------------------------------------------------------------------------------
 //The class CFG holds the logic needed to process a CFG. The most important method 
@@ -132,6 +135,3 @@ public class PartA {
 //	}
 //	
 //}//End class CFG
-
-
-
