@@ -60,7 +60,7 @@ class CFG
 				result = (processData(inString,newWkString));
 			}
 			if(prodNonTerm.equals(sNonTerminal) == false)
-				return false;
+				result = false;
 			if(result == true)
 				break;
 			//result = (processData(inString,newWkString));

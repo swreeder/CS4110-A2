@@ -25,9 +25,12 @@ public class PartC {
 		//this string array holds the production rules that satisfy the language 
 		//described in the main header.
 		String[] prodRules = {"S=>b",
-							  "S=>XbaX",
+							  "S=>ba",
+							  "S=>XbaY",
+							  "X=>aa",
 							  "X=>aaX",
-							  "X=>aa"};
+							  "Y=>aaa",
+							  "Y=>aaaY"};
 		
 		CFG cfg = new CFG(prodRules);
 		char intNT = cfg.getStartNT();
@@ -35,7 +38,7 @@ public class PartC {
 		System.out.println("Enter Test String");
 		String test = sc.nextLine();
 		String sIntNT = Character.toString(intNT);
-		boolean isMember = cfg.processData(test, sIntNT);
+		boolean isMember = cfg.processData(test, "XbaX");
 		//boolean isMember = cfg.processData(args[0], sIntNT);
 		System.out.println("  Accept String?  " + isMember);
 
