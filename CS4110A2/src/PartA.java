@@ -16,6 +16,8 @@
 //command line and tests this input to see if it is a word in the language 
 //described in the main header comments
 //--------------------------------------------------------------------------------
+// Java program to read data of various types using Scanner class.
+import java.util.Scanner;
 public class PartA {
 
 	public static void main(String[] args) {
@@ -23,6 +25,16 @@ public class PartA {
 		//described in the main header.
 		String[] prodRules = {"S=>ab",
 							  "S=>aaSbb"};
+		
+		CFG cfg = new CFG(prodRules);
+		char intNT = cfg.getStartNT();
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter Test String");
+		String test = sc.nextLine();
+		String sIntNT = Character.toString(intNT);
+		boolean isMember = cfg.processData(test, sIntNT);
+		//boolean isMember = cfg.processData(args[0], sIntNT);
+		System.out.println("  Accept String?  " + isMember);
 
 	}
 	
@@ -37,21 +49,20 @@ public class PartA {
 //--------------------------------------------------------------------------------
 class CFG
 {	
-	//Constructor
-		CFG(String[] c){
-			
-		}
-	
 	//Instance variables
 	String[] code;			//production rules as program code
 	char     startNT;		//starting nonterminal
+	//Constructor
+		CFG(String[] c){
+			code = c; 
+		}
 
 	//-------------------------------------------------------------------------------
 	//The processData method accepts a target test string and then uses production 
 	//rules for the above defined CFG to determine if the target string is in the 
 	//language. This method is recursive.
 	//-------------------------------------------------------------------------------
-	private boolean processData(String inString, String wkString) {
+	public boolean processData(String inString, String wkString) {
 		//holds next no Terminal
 		char nonTerminal='\0';
 		int nonTerminalIndex = 0;
@@ -81,19 +92,22 @@ class CFG
 		if(hasNonTermianl == false)
 			return false;
 		
+		String newWkString="";
 		for(int i = 0; i<=code.length;i++) //makes recursive calls for each production rule that matches the next non terminal
 		{
 			String prodNonTerm = code[i].substring(0, 1);
-			if(prodNonTerm.equals(nonTerminal))
+			String sNonTerminal = Character.toString(nonTerminal);
+			if(prodNonTerm.equals(sNonTerminal))
 			{
 				String prodTransform = code[i].substring(3);
 				StringBuffer temp = new StringBuffer(wkString);
 				temp.insert(nonTerminalIndex, prodTransform);
-				String newWkString = new String(temp);
-				return(processData(inString,newWkString));
+				newWkString = new String(temp);
+				//return(processData(inString,newWkString));
 			}
-			return(processData(inString,newWkString));
+			//return(processData(inString,newWkString));
 		}
+		return(processData(inString,newWkString));
 	}
 		
 	//----------------------------------------------------------------------------------
@@ -102,7 +116,7 @@ class CFG
 	//first production rule in the array is also the initial production rule for the CFG
 	//----------------------------------------------------------------------------------
 	char getStartNT() {
-		char a = 'a';
+		char a = code[0].substring(0, 1).charAt(0);
 		return a;
 	}
 	//----------------------------------------------------------------------------------
