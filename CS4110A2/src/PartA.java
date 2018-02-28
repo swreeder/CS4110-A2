@@ -63,9 +63,10 @@ class CFG
 	//language. This method is recursive.
 	//-------------------------------------------------------------------------------
 	public boolean processData(String inString, String wkString) {
-		//holds next no Terminal
+		//holds next non Terminal
 		char nonTerminal='\0';
 		int nonTerminalIndex = 0;
+		boolean x = false;
 		//base cases
 		if(inString.equals(wkString))  //is the target string the same and the work string?
 			return true;
@@ -81,6 +82,8 @@ class CFG
 			{
 				nonTerminal = letter;
 				nonTerminalIndex = i;
+				hasNonTermianl = true;
+				break;
 			}
 			else
 			{
@@ -91,23 +94,24 @@ class CFG
 		
 		if(hasNonTermianl == false)
 			return false;
-		
+		//if all the other tests are failed then create a new working string and make a recursive call for each production rule that matches the first non terminal in the work string.
 		String newWkString="";
-		for(int i = 0; i<=code.length;i++) //makes recursive calls for each production rule that matches the next non terminal
+		for(String rule : code)
 		{
-			String prodNonTerm = code[i].substring(0, 1);
-			String sNonTerminal = Character.toString(nonTerminal);
+			String prodNonTerm = rule.substring(0, 1);
+			String sNonTerminal = Character.toString(nonTerminal); 
 			if(prodNonTerm.equals(sNonTerminal))
 			{
-				String prodTransform = code[i].substring(3);
+				String prodTransformString = rule.substring(3);
 				StringBuffer temp = new StringBuffer(wkString);
-				temp.insert(nonTerminalIndex, prodTransform);
+				temp.replace(nonTerminalIndex,nonTerminalIndex+1,prodTransformString);
 				newWkString = new String(temp);
-				//return(processData(inString,newWkString));
 			}
-			//return(processData(inString,newWkString));
+			if(x == true)
+				break;
+			x = (processData(inString,newWkString));
 		}
-		return(processData(inString,newWkString));
+		return x;
 	}
 		
 	//----------------------------------------------------------------------------------
