@@ -6,31 +6,28 @@
 //		Version: 1.0
 //--------------------------------------------------------------------------------
 //The program can recognize all words in the language defined by the following CFG.
-//A CFG for alphabet {a,b} that recognizes the language consisting of all strings 
-//that contain exactly one b, have 2N a's (N >= 0, N is an integer) before the b, 
-//and 2N+1 a's after the b.
+//A CFG for alphabet {a,b} that recognizes the language consisting of all 
+//strings that start with an odd number of a's followed by the same number of b's.
 //---------------------------------------------------------------------------------
 
 
 //--------------------------------------------------------------------------------
-//The class Part A is the driver class. The mian method accepts input from the 
+//The class Part2 is the driver class. The main method accepts input from the 
 //command line and tests this input to see if it is a word in the language 
 //described in the main header comments
 //--------------------------------------------------------------------------------
 // Java program to read data of various types using Scanner class.
 import java.util.Scanner;
-public class PartC {
+public class Part2 {
 
 	public static void main(String[] args) {
 		//this string array holds the production rules that satisfy the language 
 		//described in the main header.
-		String[] prodRules = {"S=>b",
-							  "S=>ba",
-							  "S=>XbaY",
-							  "X=>aa",
-							  "X=>aaX",
-							  "Y=>aaa",
-							  "Y=>aaaY"};
+		String[] prodRules = {"S=>a",
+							  "S=>b",
+							  "S=>ab",
+							  "S=>bS",
+							  "S=>abS"};
 		
 		CFG cfg = new CFG(prodRules);
 		char intNT = cfg.getStartNT();
@@ -38,7 +35,7 @@ public class PartC {
 		System.out.println("Enter Test String");
 		String test = sc.nextLine();
 		String sIntNT = Character.toString(intNT);
-		boolean isMember = cfg.processData(test, "XbaX");
+		boolean isMember = cfg.processData(test, sIntNT);
 		//boolean isMember = cfg.processData(args[0], sIntNT);
 		System.out.println("  Accept String?  " + isMember);
 
@@ -46,4 +43,4 @@ public class PartC {
 	
 
 
-}//end class PartA
+}//end class Part2
